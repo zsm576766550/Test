@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
 }
+
 
 android {
     compileSdk 30
@@ -13,6 +15,19 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+
+    afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.release
+                    groupId = 'com.cc.test'
+                    artifactId = 'test'
+                    version = '1.0.0'
+                }
+            }
+        }
     }
 
     buildTypes {
